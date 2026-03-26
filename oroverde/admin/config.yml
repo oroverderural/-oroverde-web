@@ -1,0 +1,24 @@
+backend:
+  name: github
+  repo: oroverderural/-oroverde-web
+  branch: main
+
+media_folder: "imagenes"
+public_folder: "/imagenes"
+
+locale: "es"
+
+collections:
+  - name: "noticias"
+    label: "Noticias / Blog"
+    folder: "_noticias"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime", format: "DD/MM/YYYY" }
+      - { label: "Resumen", name: "excerpt", widget: "text", hint: "Texto corto que aparece en la tarjeta de la noticia (máx. 150 caracteres)" }
+      - { label: "Imagen destacada (emoji o URL)", name: "emoji", widget: "string", default: "🌱", hint: "Pon un emoji o deja en blanco" }
+      - { label: "Color de fondo tarjeta", name: "color", widget: "select", options: ["verde", "terra", "azul"], default: "verde" }
+      - { label: "Contenido completo", name: "body", widget: "markdown" }
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }

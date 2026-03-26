@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oro Verde La Torreta — Tu Huerto, Tu Tierra</title>
+<meta property="og:title" content="Oro Verde La Torreta — Tu Huerto, Tu Tierra">
+<meta property="og:description" content="Cultiva tus propias hortalizas ecológicas en plena Costa Blanca.">
+<meta property="og:image" content="https://oroverderural.com/og_image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://oroverderural.com">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --olive:  #2B3D1A; --olive2: #3D5424; --terra: #C4622D;
+    --gold:   #C8923A; --cream: #F5ECD7;  --sand:  #E8D9BB;
+    --bark:   #1C1508; --mist:  #F9F5EE;  --white: #FDFAF5;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--bark); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px; transition: background .4s, padding .4s;
+  }
+  nav.scrolled { background: rgba(27,20,6,.93); backdrop-filter: blur(12px); padding: 12px 48px; }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 400; color: var(--cream); letter-spacing: .04em; text-decoration: none; }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,236,215,.75); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--terra); color: var(--cream) !important; padding: 7px 18px !important; border-radius: 2px; }
+  .nav-cta:hover { background: #a84e22 !important; }
+
+  /* ── LANG SWITCHER ── */
+  .lang-switcher { display: flex; gap: 4px; }
+  .lang-btn {
+    background: transparent; border: 1px solid rgba(245,236,215,.25);
+    color: rgba(245,236,215,.6); font-size: .72rem; letter-spacing: .1em;
+    padding: 5px 10px; cursor: pointer; border-radius: 2px;
+    font-family: 'DM Sans', sans-serif; transition: all .2s;
+  }
+  .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bark); font-weight: 500; }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; height: 100vh; min-height: 640px;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background: url('oroverde_banner.png') center center / cover no-repeat;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(20,30,10,.82) 0%, rgba(20,30,10,.65) 45%, rgba(20,30,10,.2) 100%);
+  }
+  .hero-overlay-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+    background: linear-gradient(to top, rgba(20,30,10,.6), transparent);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 80px; max-width: 680px;
+  }
+  .hero-eyebrow {
+    font-size: .7rem; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+    opacity: 0; animation: fadeUp .8s .2s forwards;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 5.5vw, 5rem);
+    line-height: 1.0; color: var(--cream); font-weight: 300; margin-bottom: 24px;
+    opacity: 0; animation: fadeUp .9s .4s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem; line-height: 1.75; color: rgba(245,236,215,.75);
+    max-width: 460px; margin-bottom: 36px; font-weight: 300;
+    opacity: 0; animation: fadeUp .9s .6s forwards;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s .8s forwards; }
+  .btn-primary { background: var(--terra); color: var(--cream); padding: 13px 30px; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background .2s, transform .2s; font-family: 'DM Sans', sans-serif; }
+  .btn-primary:hover { background: #a84e22; transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid rgba(245,236,215,.35); color: var(--cream); padding: 13px 30px; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color .2s, background .2s; font-family: 'DM Sans', sans-serif; }
+  .btn-ghost:hover { border-color: var(--gold); background: rgba(200,146,58,.08); }
+  .hero-scroll { position: absolute; bottom: 28px; right: 80px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s 1.2s forwards; }
+  .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, rgba(200,146,58,.8), transparent); animation: scrollPulse 2s 1.5s infinite; }
+  .scroll-label { font-size: .62rem; letter-spacing: .2em; color: rgba(200,146,58,.6); text-transform: uppercase; writing-mode: vertical-rl; }
+  @keyframes scrollPulse { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(1.3);opacity:.5} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ── STATS ── */
+  #stats { background: var(--bark); padding: 28px 80px; display: flex; border-top: 1px solid rgba(200,146,58,.2); }
+  .stat-item { flex: 1; display: flex; align-items: center; gap: 18px; padding: 6px 0; border-right: 1px solid rgba(255,255,255,.06); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .stat-num sup { font-size: .9rem; }
+  .stat-desc { font-size: .75rem; color: rgba(245,236,215,.5); letter-spacing: .06em; text-transform: uppercase; line-height: 1.4; }
+  .stat-icon { font-size: 1.3rem; margin-left: auto; opacity: .15; }
+
+  /* ── SHARED ── */
+  .section-label { font-size: .66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
+  .section-title { font-family: 'Fraunces', serif; font-weight: 300; line-height: 1.1; }
+  .section-title em { font-style: italic; color: var(--olive2); }
+
+  /* ── WHAT ── */
+  #what { padding: 110px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--mist); }
+  .what-visual { position: relative; height: 460px; }
+  .what-card { position: absolute; border-radius: 4px; overflow: hidden; }
+  .card-main { width: 320px; height: 400px; left: 0; top: 0; background: linear-gradient(145deg, #3D5424, #2B3D1A); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; }
+  .card-main::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 20% 20%, rgba(200,146,58,.15) 0%, transparent 50%), repeating-linear-gradient(45deg,transparent 0,transparent 20px,rgba(255,255,255,.02) 20px,rgba(255,255,255,.02) 21px); }
+  .card-main-icon { font-size: 2.8rem; margin-bottom: 14px; opacity: .7; position: relative; }
+  .card-main-title { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); margin-bottom: 8px; position: relative; }
+  .card-main-text { font-size: .82rem; color: rgba(245,236,215,.6); line-height: 1.6; position: relative; }
+  .card-accent { width: 190px; height: 190px; right: 24px; bottom: 32px; background: var(--terra); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--cream); text-align: center; padding: 18px; }
+  .card-accent-num { font-family: 'Fraunces', serif; font-size: 2.6rem; font-weight: 300; line-height: 1; }
+  .card-accent-unit { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; opacity: .7; }
+  .card-tag { position: absolute; top: -14px; right: 0; background: var(--gold); color: var(--bark); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; padding: 7px 14px; font-weight: 500; }
+  .what-text .section-title { font-size: clamp(2rem, 3.2vw, 2.8rem); margin-bottom: 22px; }
+  .what-text p { font-size: .95rem; line-height: 1.8; color: #3a3020; margin-bottom: 16px; font-weight: 300; }
+  .what-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .what-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .88rem; color: #3a3020; }
+  .what-list li::before { content: '↗'; color: var(--terra); font-size: .88rem; flex-shrink: 0; margin-top: 2px; }
+
+  /* ── HOW ── */
+  #how { background: var(--olive); padding: 110px 80px; }
+  #how .section-label { color: var(--gold); }
+  #how .section-title { color: var(--cream); font-size: clamp(2rem,3.2vw,2.8rem); margin-bottom: 14px; }
+  .how-sub { color: rgba(245,236,215,.6); font-size: .92rem; max-width: 420px; line-height: 1.7; margin-bottom: 56px; font-weight: 300; }
+  .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: rgba(255,255,255,.06); }
+  .step { background: rgba(27,20,8,.5); padding: 40px 28px; position: relative; transition: background .3s; }
+  .step:hover { background: rgba(27,20,8,.8); }
+  .step-num { font-family: 'Fraunces', serif; font-size: 3.6rem; color: rgba(200,146,58,.15); line-height: 1; margin-bottom: 18px; font-weight: 300; }
+  .step-icon { font-size: 1.7rem; margin-bottom: 14px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--cream); font-weight: 400; margin-bottom: 10px; }
+  .step-text { font-size: .8rem; color: rgba(245,236,215,.55); line-height: 1.65; }
+  .cesion-box { margin-top: 48px; border: 1px solid rgba(200,146,58,.25); padding: 32px 36px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 36px; background: rgba(200,146,58,.05); }
+  .cesion-title { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--cream); font-weight: 300; margin-bottom: 8px; }
+  .cesion-title em { font-style: italic; color: var(--gold); }
+  .cesion-text { font-size: .83rem; color: rgba(245,236,215,.55); line-height: 1.65; }
+
+  /* ── LOCATIONS ── */
+  #locations { padding: 110px 80px; background: var(--cream); }
+  #locations .section-title { font-size: clamp(2rem,3.2vw,2.8rem); margin-bottom: 48px; }
+  .locations-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+  .loc-card { background: var(--white); border-radius: 4px; overflow: hidden; border: 1px solid rgba(43,61,26,.08); transition: transform .3s, box-shadow .3s; }
+  .loc-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(27,20,8,.1); }
+  .loc-header { height: 200px; position: relative; display: flex; align-items: flex-end; padding: 22px; }
+  .loc-header-torretes { background: linear-gradient(160deg,#2B3D1A,#3D5424 50%,#C4622D); }
+  .loc-header-charco { background: linear-gradient(160deg,#1A3040,#2B5C6E 50%,#3D9B8A); }
+  .loc-badge { position: absolute; top: 18px; right: 18px; background: var(--gold); color: var(--bark); font-size: .63rem; letter-spacing: .2em; text-transform: uppercase; padding: 5px 11px; font-weight: 500; border-radius: 2px; }
+  .loc-badge.pending { background: rgba(255,255,255,.2); color: var(--cream); }
+  .loc-monument-icon { font-size: 2.2rem; margin-bottom: 7px; opacity: .6; }
+  .loc-monument-name { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--cream); font-weight: 300; font-style: italic; }
+  .loc-body { padding: 26px 26px 30px; }
+  .loc-name { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 10px; }
+  .loc-desc { font-size: .83rem; color: #5a4e3a; line-height: 1.65; margin-bottom: 18px; }
+  .loc-meta { display: flex; gap: 18px; flex-wrap: wrap; }
+  .lmi-key { font-size: .63rem; letter-spacing: .18em; text-transform: uppercase; color: #8a7a60; display: block; margin-bottom: 2px; }
+  .lmi-val { font-size: .85rem; font-weight: 500; color: var(--olive); }
+
+  /* ── CROPS ── */
+  #crops { padding: 110px 80px; background: var(--bark); overflow: hidden; }
+  #crops .section-label { color: var(--gold); }
+  #crops .section-title { color: var(--cream); font-size: clamp(2rem,3.2vw,2.8rem); margin-bottom: 52px; }
+  .crops-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 2px; }
+  .crop-item { padding: 28px 18px; background: rgba(255,255,255,.04); text-align: center; transition: background .3s; position: relative; overflow: hidden; cursor: default; }
+  .crop-item:hover { background: rgba(200,146,58,.12); }
+  .crop-item::before { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--terra); transform:scaleX(0); transition:transform .3s; }
+  .crop-item:hover::before { transform:scaleX(1); }
+  .crop-emoji { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .crop-name { font-size: .75rem; color: rgba(245,236,215,.55); letter-spacing: .08em; text-transform: uppercase; }
+  .crop-season { font-size: .65rem; color: rgba(200,146,58,.5); margin-top: 4px; }
+  .crops-note { margin-top: 44px; border-top: 1px solid rgba(255,255,255,.06); padding-top: 36px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; }
+  .cnote { display: flex; gap: 14px; align-items: flex-start; }
+  .cnote-icon { font-size: 1.5rem; flex-shrink: 0; opacity: .6; }
+  .cnote-title { font-size: .83rem; color: var(--cream); margin-bottom: 5px; font-weight: 500; }
+  .cnote-text { font-size: .78rem; color: rgba(245,236,215,.45); line-height: 1.6; }
+
+  /* ── COMMUNITY ── */
+  #community { padding: 110px 80px; background: var(--sand); }
+  .community-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .community-text .section-title { font-size: clamp(2rem,3.2vw,2.8rem); margin-bottom: 22px; }
+  .community-text p { font-size: .93rem; line-height: 1.8; color: #3a3020; margin-bottom: 14px; font-weight: 300; }
+  .profiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .profile-card { background: var(--white); border-radius: 4px; padding: 18px; border-left: 3px solid var(--terra); transition: transform .25s; }
+  .profile-card:nth-child(2){border-color:var(--gold)} .profile-card:nth-child(3){border-color:var(--olive2)} .profile-card:nth-child(4){border-color:#5A8A6A}
+  .profile-card:hover { transform: translateY(-3px); }
+  .profile-emoji { font-size: 1.5rem; margin-bottom: 9px; }
+  .profile-title { font-size: .8rem; font-weight: 500; margin-bottom: 5px; color: var(--bark); }
+  .profile-desc { font-size: .76rem; color: #6a5a40; line-height: 1.55; }
+
+  /* ── JOIN ── */
+  #join { padding: 80px 80px; background: var(--olive); position: relative; overflow: hidden; }
+  #join::before { content:''; position:absolute; top:-200px; right:-200px; width:600px; height:600px; border-radius:50%; border:1px solid rgba(200,146,58,.1); }
+  @media(max-width:1024px){ #join { padding: 60px 40px; } }
+  @media(max-width:768px){ #join { padding: 56px 20px; } .join-grid { grid-template-columns: 1fr !important; } .join-photos { flex-direction: column !important; } }
+  .join-inner { position: relative; z-index: 1; max-width: 680px; }
+  .join-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 60px; align-items: start; position: relative; z-index: 1; }
+  .join-photos { display: flex; flex-direction: column; gap: 16px; }
+  .join-photo-wrap { position: relative; border-radius: 4px; border: 1.5px solid rgba(245,236,215,.8); overflow: hidden; }
+  .join-photo-wrap img { width: 100%; height: auto; display: block; transition: transform .5s ease; }
+  .join-photo-wrap:hover img { transform: scale(1.02); }
+  .join-photo-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(to top, rgba(27,20,8,.75), transparent); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(245,236,215,.8); font-family: 'DM Sans', sans-serif; }
+  @media(max-width:1024px){ .join-grid { grid-template-columns: 1fr; gap: 40px; } .join-photos { flex-direction: row; } .join-photo-wrap { flex: 1; } }
+  @media(max-width:768px){ .join-photos { flex-direction: column !important; } }
+  #join .section-label { color: var(--gold); }
+  #join .section-title { font-size: clamp(2.3rem,3.8vw,3.6rem); color: var(--cream); margin-bottom: 20px; }
+  #join .section-title em { color: var(--cream); }
+  .join-sub { font-size: .95rem; color: rgba(245,236,215,.6); line-height: 1.7; margin-bottom: 44px; font-weight: 300; }
+  .join-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group label { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,236,215,.5); }
+  .form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,.06); border: 1px solid rgba(245,236,215,.15); color: var(--cream); padding: 11px 14px; font-size: .86rem; font-family: 'DM Sans', sans-serif; border-radius: 2px; outline: none; transition: border-color .2s; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,236,215,.35); }
+  .form-group select { color: var(--cream); cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(245,236,215,0.5)' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .form-group select option { background: #2B3D1A; color: var(--cream); }
+  .form-group select option[value=""] { color: rgba(245,236,215,.35); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit { background: var(--terra); color: var(--cream); border: none; padding: 14px 36px; font-family: 'DM Sans', sans-serif; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background .2s; align-self: flex-start; }
+  .form-submit:hover { background: #a84e22; }
+  .form-note { font-size: .73rem; color: rgba(245,236,215,.35); line-height: 1.5; margin-top: 4px; }
+
+  /* ── BLOG ── */
+  #noticias { padding: 110px 80px; background: var(--mist); }
+  #noticias .section-title { font-size: clamp(2rem,3.2vw,2.8rem); margin-bottom: 12px; }
+  .blog-sub { font-size: .92rem; color: #5a4e3a; margin-bottom: 52px; font-weight: 300; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .blog-card { background: var(--white); border-radius: 6px; overflow: hidden; border: 1px solid rgba(43,61,26,.08); transition: transform .3s, box-shadow .3s; }
+  .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(27,20,8,.1); }
+  .blog-img { height: 160px; display: flex; align-items: center; justify-content: center; }
+  .blog-emoji { font-size: 3rem; }
+  .blog-body { padding: 24px; }
+  .blog-date { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--terra); font-weight: 500; }
+  .blog-title-card { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 400; color: var(--bark); margin: 10px 0 12px; line-height: 1.3; }
+  .blog-excerpt { font-size: .83rem; color: #5a4e3a; line-height: 1.65; margin-bottom: 18px; }
+  .blog-cta { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--terra); text-decoration: none; font-weight: 500; transition: color .2s; }
+  .blog-cta:hover { color: var(--olive); }
+  @media(max-width:1024px){ #noticias { padding: 80px 40px; } .blog-grid { grid-template-columns: 1fr 1fr; } }
+  @media(max-width:768px){ #noticias { padding: 56px 20px; } .blog-grid { grid-template-columns: 1fr; } }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bark); padding: 44px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,.05); }
+  .footer-logo { font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--cream); font-weight: 300; }
+  .footer-logo span { color: var(--gold); font-style: italic; }
+  .footer-tagline { font-size: .72rem; color: rgba(245,236,215,.3); margin-top: 4px; letter-spacing: .08em; }
+  .footer-quote { font-family: 'Fraunces', serif; font-style: italic; font-size: .88rem; color: rgba(200,146,58,.5); max-width: 280px; text-align: center; line-height: 1.6; }
+  .footer-info { text-align: right; }
+  .footer-info p { font-size: .76rem; color: rgba(245,236,215,.35); line-height: 1.6; }
+  .footer-info strong { color: rgba(245,236,215,.6); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1{transition-delay:.1s} .reveal-delay-2{transition-delay:.2s} .reveal-delay-3{transition-delay:.3s} .reveal-delay-4{transition-delay:.4s}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    nav{padding:16px 32px} nav.scrolled{padding:11px 32px}
+    #hero .hero-content{padding:0 40px}
+    #what,#community{padding:80px 40px}
+    #how,#locations,#crops,#join{padding:80px 40px}
+    #stats{padding:22px 40px} footer{padding:32px 40px}
+    .crops-grid{grid-template-columns:repeat(3,1fr)}
+    .crops-note{grid-template-columns:1fr;gap:20px}
+  }
+  @media(max-width:768px){
+    nav{padding:14px 20px} .nav-links{display:none}
+    #hero .hero-content{padding:0 20px 40px}
+    #stats{flex-direction:column;padding:20px}
+    .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:14px}
+    #what{grid-template-columns:1fr;padding:56px 20px;gap:40px}
+    .what-visual{height:280px} .card-main{width:240px;height:300px}
+    #how{padding:56px 20px} .steps{grid-template-columns:1fr 1fr}
+    .cesion-box{grid-template-columns:1fr}
+    #locations{padding:56px 20px} .locations-grid{grid-template-columns:1fr}
+    #crops{padding:56px 20px} .crops-grid{grid-template-columns:repeat(3,1fr)}
+    #community{padding:56px 20px} .community-inner{grid-template-columns:1fr;gap:40px}
+    #join{padding:56px 20px} .form-row{grid-template-columns:1fr}
+    footer{flex-direction:column;gap:20px;text-align:center;padding:28px 20px}
+    .footer-info{text-align:center} .hero-scroll{display:none}
+    .lang-switcher{gap:3px} .lang-btn{padding:4px 8px;font-size:.68rem}
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Oro Verde La Torreta",
+  "description": "Proyecto de agricultura comunitaria sostenible en Villajoyosa. Minihuertos ecológicos de autoconsumo junto a monumentos históricos del Mediterráneo.",
+  "url": "https://oroverderural.com",
+  "logo": "https://oroverderural.com/logo_oroverde.png",
+  "image": "https://oroverderural.com/oroverde_banner.png",
+  "telephone": "+34633277038",
+  "email": "info@oroverderural.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "PD Torretes, Polígono 10, Parcela 178",
+    "addressLocality": "Villajoyosa",
+    "addressRegion": "Alicante",
+    "postalCode": "03570",
+    "addressCountry": "ES"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.5089,
+    "longitude": -0.2269
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "08:00",
+    "closes": "20:00"
+  },
+  "sameAs": [
+    "https://www.facebook.com/Oroverderural",
+    "https://www.instagram.com/oroverderural",
+    "https://www.tiktok.com/@oroverderural"
+  ],
+  "keywords": "huertos ecológicos Villajoyosa, agricultura sostenible Alicante, minihuertos Costa Blanca, parcelas cultivo ecológico, agricultura comunitaria Villajoyosa"
+}
+</script>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Oro Verde <span>La Torreta</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#what" data-i18n="nav_what">El Huerto</a></li>
+      <li><a href="#how" data-i18n="nav_how">Cómo Funciona</a></li>
+      <li><a href="#locations" data-i18n="nav_locations">Ubicaciones</a></li>
+      <li><a href="#crops" data-i18n="nav_crops">Cultivos</a></li>
+      <li><a href="#community" data-i18n="nav_community">Comunidad</a></li>
+      <li><a href="#noticias" data-i18n="nav_blog">Noticias</a></li>
+      <li><a href="#join" class="nav-cta" data-i18n="nav_cta">Solicitar Parcela</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-bottom"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">Agricultura Sostenible · Villajoyosa, Alicante</p>
+    <h1 class="hero-title" data-i18n="hero_title">Tu huerto.<br>Tu tierra.<br><em>Tu cosecha.</em></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Cultiva tus propias hortalizas ecológicas en plena Costa Blanca. Parcelas de autoconsumo en entornos históricos únicos, junto a monumentos protegidos del Mediterráneo.</p>
+    <div class="hero-actions">
+      <a href="#join" class="btn-primary" data-i18n="hero_btn1">Solicitar mi Parcela</a>
+      <a href="#what" class="btn-ghost" data-i18n="hero_btn2">Descubrir el Proyecto</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stat-item">
+    <div><div class="stat-num">20.349<sup>m²</sup></div><div class="stat-desc" data-i18n="stat1">Superficie<br>operativa</div></div>
+    <div class="stat-icon">🌿</div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-num">100<sup>m²</sup></div><div class="stat-desc" data-i18n="stat2">Parcela<br>mínima</div></div>
+    <div class="stat-icon">🥕</div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-num">2</div><div class="stat-desc" data-i18n="stat3">Ubicaciones<br>activas</div></div>
+    <div class="stat-icon">📍</div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-num">0</div><div class="stat-desc" data-i18n="stat4">Pesticidas<br>ni herbicidas</div></div>
+    <div class="stat-icon">🌱</div>
+  </div>
+</div>
+
+<!-- WHAT -->
+<section id="what">
+  <div class="what-visual reveal">
+    <div class="what-card card-main">
+      <div class="card-main-icon">🌾</div>
+      <h3 class="card-main-title" data-i18n="what_card_title">Tu minihuerto ecológico</h3>
+      <p class="card-main-text" data-i18n="what_card_text">Parcela individual de cultivo en suelo agrícola recuperado, junto a torres históricas del Mediterráneo.</p>
+    </div>
+    <div class="what-card card-accent">
+      <span class="card-tag">Km 0</span>
+      <div class="card-accent-num">100</div>
+      <div class="card-accent-unit">m² mín.</div>
+      <div style="font-size:.68rem;color:rgba(253,250,245,.65);margin-top:7px;line-height:1.4;" data-i18n="what_card_km">Solo para tu<br>autoconsumo</div>
+    </div>
+  </div>
+  <div class="what-text">
+    <p class="section-label reveal" data-i18n="what_label">¿Qué es Oro Verde?</p>
+    <h2 class="section-title reveal" data-i18n="what_title">La tierra que<br>siempre quisiste <em>cultivar</em></h2>
+    <p class="reveal" data-i18n="what_p1">Oro Verde La Torreta es un proyecto de agricultura comunitaria sostenible en Villajoyosa. Recuperamos suelo agrícola en desuso y lo dividimos en minihuertos individuales que ponemos a disposición de agricultores comprometidos con la alimentación ecológica y la soberanía alimentaria.</p>
+    <p class="reveal" data-i18n="what_p2">Cada parcela es tu espacio: tú decides qué plantar, cuándo venir, cómo organizarte. Solo tú y tu tierra.</p>
+    <ul class="what-list reveal">
+      <li data-i18n="what_li1">Parcelas mínimas de 100 m² con suelo preparado para el cultivo ecológico</li>
+      <li data-i18n="what_li2">Acceso a infraestructura autónoma: riego por goteo, energía solar, agua</li>
+      <li data-i18n="what_li3">Cultivo 100% para tu autoconsumo — producto kilómetro cero real</li>
+      <li data-i18n="what_li4">Entornos históricos únicos junto a monumentos protegidos del Mediterráneo</li>
+      <li data-i18n="what_li5">Comunidad de agricultores comprometidos con el campo y la naturaleza</li>
+      <li data-i18n="what_li6">Orientación agronómica y talleres de permacultura incluidos</li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <p class="section-label reveal" data-i18n="how_label">El Proceso</p>
+  <h2 class="section-title reveal" data-i18n="how_title">Cuatro pasos para <em>empezar a cultivar</em></h2>
+  <p class="how-sub reveal" data-i18n="how_sub">De cero a cosechar tus primeros tomates en pocas semanas.</p>
+  <div class="steps">
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">01</div><div class="step-icon">📋</div>
+      <h3 class="step-title" data-i18n="step1_title">Solicita tu parcela</h3>
+      <p class="step-text" data-i18n="step1_text">Rellena el formulario indicando tu perfil, la ubicación preferida y cuánto espacio necesitas. Te contactaremos en 48h.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">02</div><div class="step-icon">🤝</div>
+      <h3 class="step-title" data-i18n="step2_title">Acuerdo de cesión</h3>
+      <p class="step-text" data-i18n="step2_text">Formalizamos la cesión de uso de tu parcela. Un acuerdo asociativo simple y transparente, sin burocracia comercial.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-num">03</div><div class="step-icon">🌱</div>
+      <h3 class="step-title" data-i18n="step3_title">Prepara y siembra</h3>
+      <p class="step-text" data-i18n="step3_text">Acondicionamos tu parcela juntos: enmiendas orgánicas, riego por goteo, primeras semillas. Tu huerto empieza a tomar forma.</p>
+    </div>
+    <div class="step reveal reveal-delay-4">
+      <div class="step-num">04</div><div class="step-icon">🥬</div>
+      <h3 class="step-title" data-i18n="step4_title">Cultiva y cosecha</h3>
+      <p class="step-text" data-i18n="step4_text">Ven cuando quieras, trabaja tu parcela y disfruta de tus propias hortalizas ecológicas frescas. El campo es tuyo.</p>
+    </div>
+  </div>
+  <div class="cesion-box reveal">
+    <div>
+      <h3 class="cesion-title" data-i18n="cesion_title">Cesión de uso mensual — <em>tu parcela, tu compromiso</em></h3>
+      <p class="cesion-text" data-i18n="cesion_text">Un acuerdo simple y directo dentro de la Asociación por la Agricultura Sostenible y la Vida Rural. Tú te comprometes a trabajar la tierra con respeto y continuidad; nosotros ponemos el suelo, la infraestructura y la comunidad. Escríbenos y te contamos todos los detalles.</p>
+    </div>
+    <div style="flex-shrink:0">
+      <a href="#join" class="btn-primary" data-i18n="cesion_btn">Solicitar información →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <p class="section-label reveal" data-i18n="loc_label">Nuestros Proyectos</p>
+  <h2 class="section-title reveal" data-i18n="loc_title">Dos entornos <em>únicos</em> en Villajoyosa</h2>
+  <div class="locations-grid">
+    <div class="loc-card reveal">
+      <div class="loc-header loc-header-torretes">
+        <span class="loc-badge" data-i18n="loc1_badge">● Abierto</span>
+        <div class="loc-monument">
+          <div class="loc-monument-icon">🏛️</div>
+          <div class="loc-monument-name">Torre de la Torreta · BIC</div>
+        </div>
+      </div>
+      <div class="loc-body">
+        <h3 class="loc-name" data-i18n="loc1_name">Torretes — Sede Fundacional</h3>
+        <p class="loc-desc" data-i18n="loc1_desc">El alma de Oro Verde. Doce mil metros cuadrados de suelo agrícola recuperado bajo la mirada de la Torre de la Torreta, Bien de Interés Cultural. Un espacio donde el pasado y el futuro del campo mediterráneo se encuentran.</p>
+        <div class="loc-meta">
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_surface">Superficie</span><span class="lmi-val">12.349 m²</span></div>
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_plots">Parcelas disponibles</span><span class="lmi-val" data-i18n="loc1_plots">Hasta 80+ unidades</span></div>
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_start">Inicio operativo</span><span class="lmi-val">Marzo 2026</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="loc-card reveal reveal-delay-2">
+      <div class="loc-header loc-header-charco">
+        <span class="loc-badge pending" data-i18n="loc2_badge">⏳ Próximamente</span>
+        <div class="loc-monument">
+          <div class="loc-monument-icon">🗼</div>
+          <div class="loc-monument-name">Torre del Xarco · Torre Vigía</div>
+        </div>
+      </div>
+      <div class="loc-body">
+        <h3 class="loc-name" data-i18n="loc2_name">El Charco — Huertos a 100m del Mar</h3>
+        <p class="loc-desc" data-i18n="loc2_desc">Cultiva tus hortalizas a cien metros de la costa. El Charco ofrece una experiencia agrícola única junto a la Torre del Xarco y la Playa El Xarco, con vistas al Mediterráneo.</p>
+        <div class="loc-meta">
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_surface">Superficie</span><span class="lmi-val">8.000 m² + expansión</span></div>
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_sea">Proximidad al mar</span><span class="lmi-val">~100 metros</span></div>
+          <div class="loc-meta-item"><span class="lmi-key" data-i18n="lmi_open">Apertura prevista</span><span class="lmi-val" data-i18n="loc2_open">Finales 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CROPS -->
+<section id="crops">
+  <p class="section-label reveal" data-i18n="crops_label">Cultivos</p>
+  <h2 class="section-title reveal" data-i18n="crops_title">Lo que puedes <em>plantar</em></h2>
+  <div class="crops-grid">
+    <div class="crop-item reveal reveal-delay-1"><span class="crop-emoji">🍅</span><div class="crop-name" data-i18n="crop1">Tomates</div><div class="crop-season" data-i18n="season_sv">Primavera · Verano</div></div>
+    <div class="crop-item reveal reveal-delay-1"><span class="crop-emoji">🥒</span><div class="crop-name" data-i18n="crop2">Pepinos</div><div class="crop-season" data-i18n="season_sv">Primavera · Verano</div></div>
+    <div class="crop-item reveal reveal-delay-2"><span class="crop-emoji">🫑</span><div class="crop-name" data-i18n="crop3">Pimientos</div><div class="crop-season" data-i18n="season_all">Todo el año</div></div>
+    <div class="crop-item reveal reveal-delay-2"><span class="crop-emoji">🥬</span><div class="crop-name" data-i18n="crop4">Lechugas</div><div class="crop-season" data-i18n="season_oi">Otoño · Invierno</div></div>
+    <div class="crop-item reveal reveal-delay-3"><span class="crop-emoji">🧅</span><div class="crop-name" data-i18n="crop5">Cebollas</div><div class="crop-season" data-i18n="season_op">Otoño · Primavera</div></div>
+    <div class="crop-item reveal reveal-delay-3"><span class="crop-emoji">🌿</span><div class="crop-name" data-i18n="crop6">Aromáticas</div><div class="crop-season" data-i18n="season_all">Todo el año</div></div>
+    <div class="crop-item reveal reveal-delay-1"><span class="crop-emoji">🥕</span><div class="crop-name" data-i18n="crop7">Zanahorias</div><div class="crop-season" data-i18n="season_oi">Otoño · Invierno</div></div>
+    <div class="crop-item reveal reveal-delay-2"><span class="crop-emoji">🧄</span><div class="crop-name" data-i18n="crop8">Ajos</div><div class="crop-season" data-i18n="season_ip">Invierno · Primavera</div></div>
+    <div class="crop-item reveal reveal-delay-2"><span class="crop-emoji">🫘</span><div class="crop-name" data-i18n="crop9">Judías</div><div class="crop-season" data-i18n="season_sv">Primavera · Verano</div></div>
+    <div class="crop-item reveal reveal-delay-3"><span class="crop-emoji">🌽</span><div class="crop-name" data-i18n="crop10">Maíz</div><div class="crop-season" data-i18n="season_v">Verano</div></div>
+    <div class="crop-item reveal reveal-delay-3"><span class="crop-emoji">🍆</span><div class="crop-name" data-i18n="crop11">Berenjenas</div><div class="crop-season" data-i18n="season_v">Verano</div></div>
+    <div class="crop-item reveal reveal-delay-4"><span class="crop-emoji">🌻</span><div class="crop-name" data-i18n="crop12">Variedades Locales</div><div class="crop-season">Marina Baixa</div></div>
+  </div>
+  <div class="crops-note">
+    <div class="cnote reveal"><div class="cnote-icon">☀️</div><div><div class="cnote-title" data-i18n="cnote1_title">Clima mediterráneo excepcional</div><div class="cnote-text" data-i18n="cnote1_text">Villajoyosa registra más de 300 días de sol al año. Cultivas prácticamente durante todo el calendario.</div></div></div>
+    <div class="cnote reveal reveal-delay-2"><div class="cnote-icon">💧</div><div><div class="cnote-title" data-i18n="cnote2_title">Riego por goteo de bajo consumo</div><div class="cnote-text" data-i18n="cnote2_text">Sistema eficiente que mantiene la humedad óptima sin desperdicio de agua. Totalmente autónomo.</div></div></div>
+    <div class="cnote reveal reveal-delay-3"><div class="cnote-icon">🌍</div><div><div class="cnote-title" data-i18n="cnote3_title">Semillas históricas de la Marina Baixa</div><div class="cnote-text" data-i18n="cnote3_text">Una parcela en cada ubicación preserva variedades hortícolas locales en peligro de extinción.</div></div></div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="community-inner">
+    <div class="community-text">
+      <p class="section-label reveal" data-i18n="comm_label">Comunidad</p>
+      <h2 class="section-title reveal" data-i18n="comm_title">Una comunidad<br>de <em>agricultores</em></h2>
+      <p class="reveal" data-i18n="comm_p1">Oro Verde no es solo una parcela. Es una comunidad de personas que comparten el valor del trabajo en el campo, el respeto por la tierra y la satisfacción de comer lo que tú mismo has cultivado.</p>
+      <p class="reveal" data-i18n="comm_p2">Organizamos talleres de permacultura, intercambio de semillas, jornadas de compostaje y encuentros comunitarios en torno a los monumentos históricos de cada ubicación.</p>
+    </div>
+    <div class="profiles-grid">
+      <div class="profile-card reveal reveal-delay-1"><div class="profile-emoji">👨‍👩‍👧</div><div class="profile-title" data-i18n="prof1_title">Familias y parejas</div><div class="profile-desc" data-i18n="prof1_desc">Desconexión real, contacto con la tierra y alimentos sanos para los tuyos.</div></div>
+      <div class="profile-card reveal reveal-delay-2"><div class="profile-emoji">💻</div><div class="profile-title" data-i18n="prof2_title">Nómadas digitales</div><div class="profile-desc" data-i18n="prof2_desc">Trabajo remoto y un huerto en la Costa Blanca. El equilibrio perfecto.</div></div>
+      <div class="profile-card reveal reveal-delay-3"><div class="profile-emoji">🌱</div><div class="profile-title" data-i18n="prof3_title">Soberanía alimentaria</div><div class="profile-desc" data-i18n="prof3_desc">Jóvenes comprometidos con la sostenibilidad y la alimentación consciente.</div></div>
+      <div class="profile-card reveal reveal-delay-4"><div class="profile-emoji">🧓</div><div class="profile-title" data-i18n="prof4_title">Jubilados activos</div><div class="profile-desc" data-i18n="prof4_desc">Actividad física suave, comunidad real y producto propio todo el año.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join">
+  <div class="join-grid">
+    <div class="join-inner">
+      <p class="section-label reveal" data-i18n="join_label">Únete al Proyecto</p>
+      <h2 class="section-title reveal" data-i18n="join_title">Solicita tu<br><em>parcela</em></h2>
+      <p class="join-sub reveal" data-i18n="join_sub">Cuéntanos quién eres y qué buscas. Te contactamos en 48 horas para hablar de tu parcela.</p>
+      <form class="join-form reveal" name="solicitud-parcela" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="solicitud-parcela">
+        <p style="display:none"><input name="bot-field"></p>
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="form_name">Nombre</label><input type="text" name="nombre" data-i18n-placeholder="form_name_ph" placeholder="Tu nombre" required></div>
+          <div class="form-group"><label data-i18n="form_contact">Teléfono / Email</label><input type="text" name="contacto" data-i18n-placeholder="form_contact_ph" placeholder="Cómo contactarte" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i18n="form_location">Ubicación preferida</label>
+            <select name="ubicacion">
+              <option value="" data-i18n="form_select">Seleccionar...</option>
+              <option data-i18n="form_loc1">Torretes (disponible ahora)</option>
+              <option data-i18n="form_loc2">El Charco (lista de espera)</option>
+              <option data-i18n="form_loc3">Indiferente</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_size">Tamaño aproximado</label>
+            <select name="tamano">
+              <option value="" data-i18n="form_select">Seleccionar...</option>
+              <option data-i18n="form_size1">100 m² (básica)</option>
+              <option data-i18n="form_size2">200 m² (familiar)</option>
+              <option data-i18n="form_size3">300 m² o más</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label data-i18n="form_msg">¿Qué te gustaría cultivar?</label><textarea name="mensaje" data-i18n-placeholder="form_msg_ph" placeholder="Cuéntanos tus ideas, experiencia previa, con quién vendrías..."></textarea></div>
+        <button type="submit" class="form-submit" data-i18n="form_submit">Enviar Solicitud →</button>
+        <p class="form-note" data-i18n="form_note">Tu solicitud se gestiona dentro de la asociación sin ánimo de lucro. Te explicaremos todo el proceso de cesión de uso en nuestra llamada.</p>
+      </form>
+    </div>
+    <div class="join-photos reveal reveal-delay-2">
+      <div class="join-photo-wrap">
+        <img src="foto_torretes.jpg" alt="Vista aérea de Torretes — Sede Fundacional de Oro Verde">
+        <div class="join-photo-caption">📍 Torretes · Sede Fundacional · 12.349 m²</div>
+      </div>
+      <div class="join-photo-wrap">
+        <img src="foto_xarco.jpg" alt="El Charco — huertos a 100m del Mediterráneo">
+        <div class="join-photo-caption">🌊 El Charco · A 100m del mar · Torre del Xarco BIC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / NOTICIAS -->
+<section id="noticias">
+  <p class="section-label reveal" data-i18n="blog_label">Blog & Noticias</p>
+  <h2 class="section-title reveal" data-i18n="blog_title">Últimas <em>noticias</em></h2>
+  <p class="blog-sub reveal" data-i18n="blog_sub">Novedades del proyecto, consejos de cultivo y vida en el campo.</p>
+  <div class="blog-grid">
+
+    <article class="blog-card reveal reveal-delay-1">
+      <div class="blog-img" style="background:linear-gradient(135deg,#3D5424,#2B3D1A)">
+        <span class="blog-emoji">🌱</span>
+      </div>
+      <div class="blog-body">
+        <span class="blog-date">Marzo 2026</span>
+        <h3 class="blog-title-card">Torretes abre sus puertas: primeras parcelas disponibles</h3>
+        <p class="blog-excerpt">Arrancamos la temporada 2026 con las primeras parcelas en la sede fundacional de Torretes. Más de 20.000 m² de suelo recuperado listos para cultivar.</p>
+        <a href="#join" class="blog-cta">Solicitar parcela →</a>
+      </div>
+    </article>
+
+    <article class="blog-card reveal reveal-delay-2">
+      <div class="blog-img" style="background:linear-gradient(135deg,#C4622D,#a84e22)">
+        <span class="blog-emoji">🍅</span>
+      </div>
+      <div class="blog-body">
+        <span class="blog-date">Marzo 2026</span>
+        <h3 class="blog-title-card">Qué plantar en primavera en la Costa Blanca</h3>
+        <p class="blog-excerpt">Tomates, pimientos, pepinos y judías son los cultivos estrella de la temporada. Te contamos cuándo y cómo empezar con el pie derecho.</p>
+        <a href="#crops" class="blog-cta">Ver cultivos →</a>
+      </div>
+    </article>
+
+    <article class="blog-card reveal reveal-delay-3">
+      <div class="blog-img" style="background:linear-gradient(135deg,#1A3040,#2B5C6E)">
+        <span class="blog-emoji">🌊</span>
+      </div>
+      <div class="blog-body">
+        <span class="blog-date">Próximamente</span>
+        <h3 class="blog-title-card">El Charco: huertos a 100 metros del Mediterráneo</h3>
+        <p class="blog-excerpt">Segunda ubicación de Oro Verde junto a la Torre del Xarco. Abrimos lista de espera para los primeros socios del proyecto más único de la Costa Blanca.</p>
+        <a href="#join" class="blog-cta">Apuntarme →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">Oro Verde <span>La Torreta</span></div>
+    <div class="footer-tagline" data-i18n="footer_tagline">"Cultivar, cosechar, vivir. El campo como derecho, no como lujo."</div>
+  </div>
+  <div class="footer-quote" data-i18n="footer_quote">Agricultura sostenible,<br>comunidad real,<br>producto kilómetro cero.</div>
+  <div class="footer-info">
+    <p><strong>Asociación por la Agricultura<br>Sostenible y la Vida Rural</strong></p>
+    <p>PD Torretes, Polígono 10, Parcela 178<br>Villajoyosa, Alicante · España</p>
+    <p><a href="tel:+34633277038" style="color:rgba(245,236,215,.55);text-decoration:none;">📞 +34 633 27 70 38</a></p>
+    <p><a href="/cdn-cgi/l/email-protection#fa93949c95ba9588958c9f889e9f888f889b96d4999597" style="color:rgba(245,236,215,.55);text-decoration:none;">✉ <span class="__cf_email__" data-cfemail="6c05020a032c031e031a091e08091e191e0d00420f0301">[email&#160;protected]</span></a></p>
+    <div style="display:flex;gap:14px;margin-top:10px;justify-content:flex-end;">
+      <a href="https://www.facebook.com/Oroverderural" target="_blank" title="Facebook" style="color:rgba(245,236,215,.5);font-size:1.3rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C8923A'" onmouseout="this.style.color='rgba(245,236,215,.5)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/oroverderural" target="_blank" title="Instagram" style="color:rgba(245,236,215,.5);font-size:1.3rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C8923A'" onmouseout="this.style.color='rgba(245,236,215,.5)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@oroverderural" target="_blank" title="TikTok" style="color:rgba(245,236,215,.5);font-size:1.3rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C8923A'" onmouseout="this.style.color='rgba(245,236,215,.5)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+      </a>
+    </div>
+    <p style="margin-top:7px;font-size:.68rem;">© 2026 Oro Verde La Torreta</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<!-- WHATSAPP FLOTANTE -->
+<style>
+  #wa-btn { position:fixed; bottom:28px; right:28px; z-index:999; }
+  #wa-btn a {
+    display:flex; align-items:center; justify-content:center;
+    width:56px; height:56px; border-radius:50%;
+    background:#25D366; color:#fff;
+    box-shadow:0 4px 20px rgba(37,211,102,.45);
+    text-decoration:none;
+    transition:transform .2s, box-shadow .2s;
+    animation: waPulse 2.5s infinite;
+  }
+  #wa-btn a:hover { transform:scale(1.1); box-shadow:0 6px 28px rgba(37,211,102,.6); animation:none; }
+  #wa-tooltip {
+    position:absolute; bottom:66px; right:0;
+    background:#fff; color:#1a1a1a;
+    padding:8px 14px; border-radius:8px;
+    font-family:'DM Sans',sans-serif; font-size:.8rem;
+    white-space:nowrap; box-shadow:0 4px 16px rgba(0,0,0,.15);
+    opacity:0; pointer-events:none; transition:opacity .2s;
+  }
+  #wa-tooltip::after {
+    content:''; position:absolute; bottom:-6px; right:20px;
+    border:6px solid transparent; border-top-color:#fff;
+    border-bottom:none;
+  }
+  #wa-btn:hover #wa-tooltip, #wa-btn a:focus + #wa-tooltip { opacity:1; }
+  @keyframes waPulse {
+    0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.45)}
+    50%{box-shadow:0 4px 28px rgba(37,211,102,.8),0 0 0 8px rgba(37,211,102,.1)}
+  }
+</style>
+<div id="wa-btn">
+  <div id="wa-tooltip">¡Escríbenos, te respondemos enseguida! 🌿</div>
+  <a href="https://wa.me/34633277038?text=Hola%2C%20me%20interesa%20Oro%20Verde%20La%20Torreta" target="_blank" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── TRANSLATIONS ──────────────────────────────────────────────
+const i18n = {
+  es: {
+    nav_what:"El Huerto", nav_how:"Cómo Funciona", nav_locations:"Ubicaciones",
+    nav_crops:"Cultivos", nav_community:"Comunidad", nav_blog:"Noticias", nav_cta:"Solicitar Parcela", blog_label:"Blog & Noticias", blog_title:"Últimas <em>noticias</em>", blog_sub:"Novedades del proyecto, consejos de cultivo y vida en el campo.",
+    hero_eyebrow:"Agricultura Sostenible · Villajoyosa, Alicante",
+    hero_title:"Tu huerto.<br>Tu tierra.<br><em>Tu cosecha.</em>",
+    hero_sub:"Cultiva tus propias hortalizas ecológicas en plena Costa Blanca. Parcelas de autoconsumo en entornos históricos únicos, junto a monumentos protegidos del Mediterráneo.",
+    hero_btn1:"Solicitar mi Parcela", hero_btn2:"Descubrir el Proyecto",
+    stat1:"Superficie<br>operativa", stat2:"Parcela<br>mínima", stat3:"Ubicaciones<br>activas", stat4:"Pesticidas<br>ni herbicidas",
+    what_label:"¿Qué es Oro Verde?", what_title:"La tierra que<br>siempre quisiste <em>cultivar</em>",
+    what_card_title:"Tu minihuerto ecológico", what_card_text:"Parcela individual de cultivo en suelo agrícola recuperado, junto a torres históricas del Mediterráneo.", what_card_km:"Solo para tu<br>autoconsumo",
+    what_p1:"Oro Verde La Torreta es un proyecto de agricultura comunitaria sostenible en Villajoyosa. Recuperamos suelo agrícola en desuso y lo dividimos en minihuertos individuales que ponemos a disposición de agricultores comprometidos con la alimentación ecológica y la soberanía alimentaria.",
+    what_p2:"Cada parcela es tu espacio: tú decides qué plantar, cuándo venir, cómo organizarte. Solo tú y tu tierra.",
+    what_li1:"Parcelas mínimas de 100 m² con suelo preparado para el cultivo ecológico",
+    what_li2:"Acceso a infraestructura autónoma: riego por goteo, energía solar, agua",
+    what_li3:"Cultivo 100% para tu autoconsumo — producto kilómetro cero real",
+    what_li4:"Entornos históricos únicos junto a monumentos protegidos del Mediterráneo",
+    what_li5:"Comunidad de agricultores comprometidos con el campo y la naturaleza",
+    what_li6:"Orientación agronómica y talleres de permacultura incluidos",
+    how_label:"El Proceso", how_title:"Cuatro pasos para <em>empezar a cultivar</em>", how_sub:"De cero a cosechar tus primeros tomates en pocas semanas.",
+    step1_title:"Solicita tu parcela", step1_text:"Rellena el formulario indicando tu perfil, la ubicación preferida y cuánto espacio necesitas. Te contactaremos en 48h.",
+    step2_title:"Acuerdo de cesión", step2_text:"Formalizamos la cesión de uso de tu parcela. Un acuerdo asociativo simple y transparente, sin burocracia comercial.",
+    step3_title:"Prepara y siembra", step3_text:"Acondicionamos tu parcela juntos: enmiendas orgánicas, riego por goteo, primeras semillas. Tu huerto empieza a tomar forma.",
+    step4_title:"Cultiva y cosecha", step4_text:"Ven cuando quieras, trabaja tu parcela y disfruta de tus propias hortalizas ecológicas frescas. El campo es tuyo.",
+    cesion_title:"Cesión de uso mensual — <em>tu parcela, tu compromiso</em>",
+    cesion_text:"Un acuerdo simple y directo dentro de la Asociación por la Agricultura Sostenible y la Vida Rural. Tú te comprometes a trabajar la tierra con respeto y continuidad; nosotros ponemos el suelo, la infraestructura y la comunidad. Escríbenos y te contamos todos los detalles.",
+    cesion_btn:"Solicitar información →",
+    loc_label:"Nuestros Proyectos", loc_title:"Dos entornos <em>únicos</em> en Villajoyosa",
+    loc1_badge:"● Abierto", loc1_name:"Torretes — Sede Fundacional",
+    loc1_desc:"El alma de Oro Verde. Doce mil metros cuadrados de suelo agrícola recuperado bajo la mirada de la Torre de la Torreta, Bien de Interés Cultural.",
+    lmi_surface:"Superficie", lmi_plots:"Parcelas disponibles", loc1_plots:"Hasta 80+ unidades", lmi_start:"Inicio operativo",
+    loc2_badge:"⏳ Próximamente", loc2_name:"El Charco — Huertos a 100m del Mar",
+    loc2_desc:"Cultiva tus hortalizas a cien metros de la costa. Una experiencia agrícola única junto a la Torre del Xarco y la Playa El Xarco, con vistas al Mediterráneo.",
+    lmi_sea:"Proximidad al mar", lmi_open:"Apertura prevista", loc2_open:"Finales 2026",
+    crops_label:"Cultivos", crops_title:"Lo que puedes <em>plantar</em>",
+    crop1:"Tomates",crop2:"Pepinos",crop3:"Pimientos",crop4:"Lechugas",crop5:"Cebollas",crop6:"Aromáticas",crop7:"Zanahorias",crop8:"Ajos",crop9:"Judías",crop10:"Maíz",crop11:"Berenjenas",crop12:"Variedades Locales",
+    season_sv:"Primavera · Verano",season_all:"Todo el año",season_oi:"Otoño · Invierno",season_op:"Otoño · Primavera",season_ip:"Invierno · Primavera",season_v:"Verano",
+    cnote1_title:"Clima mediterráneo excepcional",cnote1_text:"Villajoyosa registra más de 300 días de sol al año. Cultivas prácticamente durante todo el calendario.",
+    cnote2_title:"Riego por goteo de bajo consumo",cnote2_text:"Sistema eficiente que mantiene la humedad óptima sin desperdicio de agua. Totalmente autónomo.",
+    cnote3_title:"Semillas históricas de la Marina Baixa",cnote3_text:"Una parcela en cada ubicación preserva variedades hortícolas locales en peligro de extinción.",
+    comm_label:"Comunidad", comm_title:"Una comunidad<br>de <em>agricultores</em>",
+    comm_p1:"Oro Verde no es solo una parcela. Es una comunidad de personas que comparten el valor del trabajo en el campo, el respeto por la tierra y la satisfacción de comer lo que tú mismo has cultivado.",
+    comm_p2:"Organizamos talleres de permacultura, intercambio de semillas, jornadas de compostaje y encuentros comunitarios en torno a los monumentos históricos de cada ubicación.",
+    prof1_title:"Familias y parejas",prof1_desc:"Desconexión real, contacto con la tierra y alimentos sanos para los tuyos.",
+    prof2_title:"Nómadas digitales",prof2_desc:"Trabajo remoto y un huerto en la Costa Blanca. El equilibrio perfecto.",
+    prof3_title:"Soberanía alimentaria",prof3_desc:"Jóvenes comprometidos con la sostenibilidad y la alimentación consciente.",
+    prof4_title:"Jubilados activos",prof4_desc:"Actividad física suave, comunidad real y producto propio todo el año.",
+    join_label:"Únete al Proyecto", join_title:"Solicita tu<br><em>parcela</em>",
+    join_sub:"Cuéntanos quién eres y qué buscas. Te contactamos en 48 horas para hablar de tu parcela.",
+    form_name:"Nombre",form_name_ph:"Tu nombre",form_contact:"Teléfono / Email",form_contact_ph:"Cómo contactarte",
+    form_location:"Ubicación preferida",form_select:"Seleccionar...",form_loc1:"Torretes (disponible ahora)",form_loc2:"El Charco (lista de espera)",form_loc3:"Indiferente",
+    form_size:"Tamaño aproximado",form_size1:"100 m² (básica)",form_size2:"200 m² (familiar)",form_size3:"300 m² o más",
+    form_msg:"¿Qué te gustaría cultivar?",form_msg_ph:"Cuéntanos tus ideas, experiencia previa, con quién vendrías...",
+    form_submit:"Enviar Solicitud →",form_note:"Tu solicitud se gestiona dentro de la asociación sin ánimo de lucro. Te explicaremos todo el proceso de cesión de uso en nuestra llamada.",
+    footer_tagline:'"Cultivar, cosechar, vivir. El campo como derecho, no como lujo."',
+    footer_quote:"Agricultura sostenible,<br>comunidad real,<br>producto kilómetro cero.",
+    form_success:"✓ Solicitud enviada"
+  },
+  en: {
+    nav_what:"The Garden", nav_how:"How It Works", nav_locations:"Locations",
+    nav_crops:"Crops", nav_community:"Community", nav_blog:"News", nav_cta:"Request a Plot", blog_label:"Blog & News", blog_title:"Latest <em>news</em>", blog_sub:"Project updates, growing tips and life in the field.",
+    hero_eyebrow:"Sustainable Agriculture · Villajoyosa, Alicante",
+    hero_title:"Your garden.<br>Your land.<br><em>Your harvest.</em>",
+    hero_sub:"Grow your own organic vegetables on the Costa Blanca. Self-consumption plots in unique historical settings, next to protected Mediterranean monuments.",
+    hero_btn1:"Request my Plot", hero_btn2:"Discover the Project",
+    stat1:"Operational<br>surface area", stat2:"Minimum<br>plot size", stat3:"Active<br>locations", stat4:"Pesticides<br>or herbicides",
+    what_label:"What is Oro Verde?", what_title:"The land you always<br>wanted to <em>cultivate</em>",
+    what_card_title:"Your organic micro-garden", what_card_text:"Individual cultivation plot on reclaimed agricultural land, next to historic Mediterranean watchtowers.", what_card_km:"For your own<br>consumption only",
+    what_p1:"Oro Verde La Torreta is a sustainable community agriculture project in Villajoyosa. We reclaim unused agricultural land and divide it into individual micro-gardens for farmers committed to organic food and food sovereignty.",
+    what_p2:"Each plot is your space: you decide what to plant, when to come, how to organize. Just you and your land.",
+    what_li1:"Minimum plots of 100 m² with soil prepared for organic cultivation",
+    what_li2:"Access to autonomous infrastructure: drip irrigation, solar energy, water",
+    what_li3:"100% self-consumption cultivation — real zero-kilometer produce",
+    what_li4:"Unique historical settings next to protected Mediterranean monuments",
+    what_li5:"Community of farmers committed to the land and nature",
+    what_li6:"Agronomic guidance and permaculture workshops included",
+    how_label:"The Process", how_title:"Four steps to <em>start growing</em>", how_sub:"From zero to harvesting your first tomatoes in just a few weeks.",
+    step1_title:"Request your plot", step1_text:"Fill in the form with your profile, preferred location and how much space you need. We'll contact you within 48h.",
+    step2_title:"Use agreement", step2_text:"We formalize the use assignment of your plot. A simple and transparent associative agreement, without commercial bureaucracy.",
+    step3_title:"Prepare and sow", step3_text:"We prepare your plot together: organic amendments, drip irrigation, first seeds. Your garden starts to take shape.",
+    step4_title:"Grow and harvest", step4_text:"Come whenever you want, work your plot and enjoy your own fresh organic vegetables. The land is yours.",
+    cesion_title:"Monthly use assignment — <em>your plot, your commitment</em>",
+    cesion_text:"A simple and direct agreement within the Association for Sustainable Agriculture and Rural Life. You commit to working the land with respect and continuity; we provide the soil, infrastructure and community. Write to us and we'll tell you all the details.",
+    cesion_btn:"Request information →",
+    loc_label:"Our Projects", loc_title:"Two <em>unique</em> settings in Villajoyosa",
+    loc1_badge:"● Open", loc1_name:"Torretes — Founding Headquarters",
+    loc1_desc:"The soul of Oro Verde. Twelve thousand square metres of reclaimed agricultural land under the watchful eye of the Torre de la Torreta, a Cultural Heritage Site.",
+    lmi_surface:"Surface area", lmi_plots:"Available plots", loc1_plots:"Up to 80+ units", lmi_start:"Operational start",
+    loc2_badge:"⏳ Coming soon", loc2_name:"El Charco — Gardens 100m from the Sea",
+    loc2_desc:"Grow your vegetables one hundred metres from the coast. A unique agricultural experience next to the Torre del Xarco and El Xarco Beach, with views of the Mediterranean.",
+    lmi_sea:"Distance to sea", lmi_open:"Opening planned", loc2_open:"Late 2026",
+    crops_label:"Crops", crops_title:"What you can <em>grow</em>",
+    crop1:"Tomatoes",crop2:"Cucumbers",crop3:"Peppers",crop4:"Lettuces",crop5:"Onions",crop6:"Aromatics",crop7:"Carrots",crop8:"Garlic",crop9:"Beans",crop10:"Corn",crop11:"Aubergines",crop12:"Local Varieties",
+    season_sv:"Spring · Summer",season_all:"All year",season_oi:"Autumn · Winter",season_op:"Autumn · Spring",season_ip:"Winter · Spring",season_v:"Summer",
+    cnote1_title:"Exceptional Mediterranean climate",cnote1_text:"Villajoyosa has more than 300 sunny days a year. You can grow practically throughout the whole calendar.",
+    cnote2_title:"Low-consumption drip irrigation",cnote2_text:"Efficient system that maintains optimal moisture without water waste. Fully autonomous.",
+    cnote3_title:"Historic seeds of the Marina Baixa",cnote3_text:"One plot at each location preserves endangered local vegetable varieties.",
+    comm_label:"Community", comm_title:"A community<br>of <em>growers</em>",
+    comm_p1:"Oro Verde is not just a plot. It's a community of people who share the value of working the land, respect for the earth and the satisfaction of eating what you've grown yourself.",
+    comm_p2:"We organise permaculture workshops, seed exchanges, composting days and community gatherings around the historic monuments at each location.",
+    prof1_title:"Families & couples",prof1_desc:"Real disconnection, contact with the land and healthy food for your loved ones.",
+    prof2_title:"Digital nomads",prof2_desc:"Remote work and a garden on the Costa Blanca. The perfect balance.",
+    prof3_title:"Food sovereignty",prof3_desc:"Young people committed to sustainability and conscious eating.",
+    prof4_title:"Active retirees",prof4_desc:"Gentle physical activity, real community and home-grown produce all year round.",
+    join_label:"Join the Project", join_title:"Request your<br><em>plot</em>",
+    join_sub:"Tell us who you are and what you're looking for. We'll contact you within 48 hours to talk about your plot.",
+    form_name:"Name",form_name_ph:"Your name",form_contact:"Phone / Email",form_contact_ph:"How to contact you",
+    form_location:"Preferred location",form_select:"Select...",form_loc1:"Torretes (available now)",form_loc2:"El Charco (waiting list)",form_loc3:"No preference",
+    form_size:"Approximate size",form_size1:"100 m² (basic)",form_size2:"200 m² (family)",form_size3:"300 m² or more",
+    form_msg:"What would you like to grow?",form_msg_ph:"Tell us your ideas, previous experience, who you'd come with...",
+    form_submit:"Send Request →",form_note:"Your request is handled within the non-profit association. We'll explain the full use assignment process on our call.",
+    footer_tagline:'"Grow, harvest, live. The land as a right, not a luxury."',
+    footer_quote:"Sustainable agriculture,<br>real community,<br>zero-kilometre produce.",
+    form_success:"✓ Request sent"
+  },
+  de: {
+    nav_what:"Der Garten", nav_how:"So funktioniert's", nav_locations:"Standorte",
+    nav_crops:"Anbau", nav_community:"Gemeinschaft", nav_blog:"Neuigkeiten", nav_cta:"Parzelle anfragen", blog_label:"Blog & Neuigkeiten", blog_title:"Aktuelle <em>Neuigkeiten</em>", blog_sub:"Projektneuigkeiten, Anbautipps und Landleben.",
+    hero_eyebrow:"Nachhaltige Landwirtschaft · Villajoyosa, Alicante",
+    hero_title:"Dein Garten.<br>Dein Land.<br><em>Deine Ernte.</em>",
+    hero_sub:"Bau dein eigenes Bio-Gemüse an der Costa Blanca an. Selbstversorgungsparzellen in einzigartiger historischer Umgebung, neben geschützten Denkmälern des Mittelmeers.",
+    hero_btn1:"Meine Parzelle anfragen", hero_btn2:"Projekt entdecken",
+    stat1:"Betriebsfläche", stat2:"Mindest-<br>parzelle", stat3:"Aktive<br>Standorte", stat4:"Pestizide<br>oder Herbizide",
+    what_label:"Was ist Oro Verde?", what_title:"Das Land, das du schon<br>immer <em>bebauen</em> wolltest",
+    what_card_title:"Dein Bio-Kleingarten", what_card_text:"Individuelle Anbaufläche auf rückgewonnenem Ackerland, neben historischen Wachtürmen des Mittelmeers.", what_card_km:"Nur für deinen<br>Eigenverbrauch",
+    what_p1:"Oro Verde La Torreta ist ein nachhaltiges Gemeinschaftslandwirtschaftsprojekt in Villajoyosa. Wir erschließen brachliegendes Ackerland und teilen es in individuelle Kleingärten auf, die wir Landwirten zur Verfügung stellen, die sich für biologische Ernährung und Ernährungssouveränität einsetzen.",
+    what_p2:"Jede Parzelle ist dein Raum: Du entscheidest, was du anpflanzt, wann du kommst, wie du dich organisierst. Nur du und dein Land.",
+    what_li1:"Mindestparzellen von 100 m² mit für den Bio-Anbau vorbereiteten Böden",
+    what_li2:"Zugang zu autonomer Infrastruktur: Tröpfchenbewässerung, Solarenergie, Wasser",
+    what_li3:"100% Eigenverbrauchsanbau — echte Produkte aus der unmittelbaren Umgebung",
+    what_li4:"Einzigartige historische Umgebungen neben geschützten Mittelmeerdenkmälern",
+    what_li5:"Gemeinschaft von Landwirten, die sich für das Land und die Natur einsetzen",
+    what_li6:"Agronomische Beratung und Permakultur-Workshops inklusive",
+    how_label:"Der Prozess", how_title:"Vier Schritte zum <em>Anbauen</em>", how_sub:"Von null bis zur ersten Tomatenernte in wenigen Wochen.",
+    step1_title:"Parzelle anfragen", step1_text:"Fülle das Formular mit deinem Profil, dem bevorzugten Standort und dem benötigten Platz aus. Wir melden uns innerhalb von 48h.",
+    step2_title:"Nutzungsvereinbarung", step2_text:"Wir formalisieren die Nutzungsübertragung deiner Parzelle. Eine einfache und transparente Vereinbarung, ohne kommerzielle Bürokratie.",
+    step3_title:"Vorbereiten & säen", step3_text:"Wir bereiten deine Parzelle gemeinsam vor: Bio-Kompost, Tröpfchenbewässerung, erste Samen. Dein Garten nimmt Gestalt an.",
+    step4_title:"Anbauen & ernten", step4_text:"Komm wann immer du möchtest, bearbeite deine Parzelle und genieße dein frisches Bio-Gemüse. Das Land gehört dir.",
+    cesion_title:"Monatliche Nutzungsüberlassung — <em>deine Parzelle, dein Engagement</em>",
+    cesion_text:"Eine einfache und direkte Vereinbarung innerhalb des Vereins für nachhaltige Landwirtschaft und ländliches Leben. Du verpflichtest dich, das Land mit Respekt zu bearbeiten; wir stellen Boden, Infrastruktur und Gemeinschaft bereit. Schreib uns und wir erklären dir alle Details.",
+    cesion_btn:"Informationen anfordern →",
+    loc_label:"Unsere Projekte", loc_title:"Zwei <em>einzigartige</em> Standorte in Villajoyosa",
+    loc1_badge:"● Geöffnet", loc1_name:"Torretes — Gründungsstandort",
+    loc1_desc:"Das Herzstück von Oro Verde. Zwölftausend Quadratmeter rückgewonnenes Ackerland unter den Augen des Torre de la Torreta, einem Kulturdenkmal.",
+    lmi_surface:"Fläche", lmi_plots:"Verfügbare Parzellen", loc1_plots:"Bis zu 80+ Einheiten", lmi_start:"Betriebsbeginn",
+    loc2_badge:"⏳ Demnächst", loc2_name:"El Charco — Gärten 100m vom Meer",
+    loc2_desc:"Bau dein Gemüse hundert Meter von der Küste an. Ein einzigartiges Landwirtschaftserlebnis neben dem Torre del Xarco und dem El Xarco Beach, mit Blick aufs Mittelmeer.",
+    lmi_sea:"Entfernung zum Meer", lmi_open:"Geplante Eröffnung", loc2_open:"Ende 2026",
+    crops_label:"Anbau", crops_title:"Was du <em>anpflanzen</em> kannst",
+    crop1:"Tomaten",crop2:"Gurken",crop3:"Paprika",crop4:"Salate",crop5:"Zwiebeln",crop6:"Kräuter",crop7:"Karotten",crop8:"Knoblauch",crop9:"Bohnen",crop10:"Mais",crop11:"Auberginen",crop12:"Lokale Sorten",
+    season_sv:"Frühling · Sommer",season_all:"Ganzjährig",season_oi:"Herbst · Winter",season_op:"Herbst · Frühling",season_ip:"Winter · Frühling",season_v:"Sommer",
+    cnote1_title:"Außergewöhnliches Mittelmeerklima",cnote1_text:"Villajoyosa verzeichnet mehr als 300 Sonnentage im Jahr. Du kannst praktisch das ganze Jahr über anbauen.",
+    cnote2_title:"Wassersparende Tröpfchenbewässerung",cnote2_text:"Effizientes System, das optimale Feuchtigkeit ohne Wasserverschwendung aufrechthält. Vollständig autonom.",
+    cnote3_title:"Historische Samen der Marina Baixa",cnote3_text:"Eine Parzelle an jedem Standort bewahrt vom Aussterben bedrohte lokale Gemüsesorten.",
+    comm_label:"Gemeinschaft", comm_title:"Eine Gemeinschaft<br>von <em>Gärtnern</em>",
+    comm_p1:"Oro Verde ist nicht nur eine Parzelle. Es ist eine Gemeinschaft von Menschen, die den Wert der Feldarbeit, den Respekt vor der Erde und die Freude teilen, das zu essen, was man selbst angebaut hat.",
+    comm_p2:"Wir organisieren Permakultur-Workshops, Samenaustausch, Kompostiertage und Gemeinschaftstreffen rund um die historischen Denkmäler an jedem Standort.",
+    prof1_title:"Familien & Paare",prof1_desc:"Echte Auszeit, Naturkontakt und gesunde Lebensmittel für die Liebsten.",
+    prof2_title:"Digitale Nomaden",prof2_desc:"Remote-Arbeit und ein Garten an der Costa Blanca. Die perfekte Balance.",
+    prof3_title:"Ernährungssouveränität",prof3_desc:"Junge Menschen, die sich für Nachhaltigkeit und bewusstes Essen einsetzen.",
+    prof4_title:"Aktive Rentner",prof4_desc:"Sanfte körperliche Aktivität, echte Gemeinschaft und eigene Produkte das ganze Jahr.",
+    join_label:"Dem Projekt beitreten", join_title:"Deine<br><em>Parzelle</em> anfragen",
+    join_sub:"Erzähl uns, wer du bist und was du suchst. Wir melden uns innerhalb von 48 Stunden.",
+    form_name:"Name",form_name_ph:"Dein Name",form_contact:"Telefon / E-Mail",form_contact_ph:"Wie wir dich erreichen",
+    form_location:"Bevorzugter Standort",form_select:"Auswählen...",form_loc1:"Torretes (jetzt verfügbar)",form_loc2:"El Charco (Warteliste)",form_loc3:"Egal",
+    form_size:"Ungefähre Größe",form_size1:"100 m² (Basis)",form_size2:"200 m² (Familie)",form_size3:"300 m² oder mehr",
+    form_msg:"Was möchtest du anpflanzen?",form_msg_ph:"Erzähl uns deine Ideen, bisherige Erfahrungen, mit wem du kommen würdest...",
+    form_submit:"Anfrage senden →",form_note:"Deine Anfrage wird innerhalb des gemeinnützigen Vereins bearbeitet. Wir erklären dir den gesamten Nutzungsüberlassungsprozess in unserem Gespräch.",
+    footer_tagline:'"Anbauen, ernten, leben. Das Land als Recht, nicht als Luxus."',
+    footer_quote:"Nachhaltige Landwirtschaft,<br>echte Gemeinschaft,<br>regionale Produkte.",
+    form_success:"✓ Anfrage gesendet"
+  }
+};
+
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  // update active button
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+  // update html lang
+  document.documentElement.lang = lang;
+  // update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  // update page title
+  const titles = { es: 'Oro Verde La Torreta — Tu Huerto, Tu Tierra', en: 'Oro Verde La Torreta — Your Garden, Your Land', de: 'Oro Verde La Torreta — Dein Garten, Dein Land' };
+  document.title = titles[lang];
+}
+
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// ── FORM SUBMIT ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
+  const t = i18n[currentLang];
+  btn.disabled = true;
+  btn.textContent = '⏳ Enviando...';
+
+  const formData = new FormData(form);
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
+  })
+  .then(() => {
+    btn.textContent = t.form_success || '✓ Solicitud enviada';
+    btn.style.background = '#2B3D1A';
+    form.reset();
+    setTimeout(() => {
+      btn.innerHTML = t.form_submit || 'Enviar →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  })
+  .catch(() => {
+    btn.textContent = t.form_success || '✓ Solicitud enviada';
+    btn.style.background = '#2B3D1A';
+    form.reset();
+    setTimeout(() => {
+      btn.innerHTML = t.form_submit || 'Enviar →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  });
+}
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
+"
