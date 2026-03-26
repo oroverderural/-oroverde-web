@@ -560,9 +560,7 @@
       <p class="section-label reveal" data-i18n="join_label">Únete al Proyecto</p>
       <h2 class="section-title reveal" data-i18n="join_title">Solicita tu<br><em>parcela</em></h2>
       <p class="join-sub reveal" data-i18n="join_sub">Cuéntanos quién eres y qué buscas. Te contactamos en 48 horas para hablar de tu parcela.</p>
-      <form class="join-form reveal" name="solicitud-parcela" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="form-name" value="solicitud-parcela">
-        <p style="display:none"><input name="bot-field"></p>
+      <form class="join-form" action="https://formspree.io/f/meepookp" method="POST">
         <div class="form-row">
           <div class="form-group"><label data-i18n="form_name">Nombre</label><input type="text" name="nombre" data-i18n-placeholder="form_name_ph" placeholder="Tu nombre" required></div>
           <div class="form-group"><label data-i18n="form_contact">Teléfono / Email</label><input type="text" name="contacto" data-i18n-placeholder="form_contact_ph" placeholder="Cómo contactarte" required></div>
